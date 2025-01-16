@@ -16,7 +16,7 @@ public:
     Patch( std::string_view orig_filename, std::string_view patch_filename)
     :
         orig_( readFile( orig_filename)),
-        patch_( patch_filename, std::ios_base::in)
+        patch_( std::string(patch_filename))
     {
         if ( !patch_.is_open() )
         {

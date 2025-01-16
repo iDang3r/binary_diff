@@ -6,7 +6,7 @@
 ByteVector
 readFile( std::string_view filename)
 {
-    std::ifstream file( filename, std::ios_base::binary);
+    std::ifstream file( std::string(filename), std::ios_base::binary);
     if ( !file.is_open())
     {
         std::cerr << "Could not open file " << filename << std::endl;
