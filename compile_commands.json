@@ -1,0 +1,12 @@
+[
+  {
+    "directory": ".",
+    "command": "g++ -c -Wall -std=c++17 -Isrc obj/../src/diff.cc -o obj/diff.o",
+    "file": "obj/diff.o"
+  },
+  {
+    "directory": ".",
+    "command": "g++ -c -Wall -std=c++17 -Isrc obj/../src/main.cc -o obj/main.o",
+    "file": "obj/main.o"
+  }
+]
