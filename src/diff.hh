@@ -1,18 +1,18 @@
 #ifndef DIFF_HH
 #define DIFF_HH
 
-#include <cstdint>
-#include <fstream>
 #include <string_view>
-#include <vector>
+
+#include "useful.hh"
 
 class Diff
 {
 private:
-    using ByteVector = std::vector<uint8_t>;
-
     ByteVector orig_;
     ByteVector new_;
+
+    std::vector<bool> saved_orig_{};
+    std::vector<bool> saved_new_{};
 public:
     Diff( std::string_view orig_filename, std::string_view new_filename)
     :
@@ -20,10 +20,9 @@ public:
         new_( readFile( new_filename))
     {}
 
+    void process();
+    std::string getDiff() const;
     std::string dump() const;
-
-private:
-    ByteVector readFile( std::string_view filename);
 };
 
 #endif // DIFF_HH

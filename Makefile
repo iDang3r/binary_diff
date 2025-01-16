@@ -7,8 +7,9 @@ INCLUDE := -Isrc
 LIBPATH :=
 LIBS :=
 
-CXXFLAGS := -Wall -std=c++17
-LINKFLAGS := 
+FLAGS := -O3
+CXXFLAGS := $(FLAGS) -Wall -std=c++17
+LINKFLAGS := $(FLAGS)
 
 CXX := g++
 

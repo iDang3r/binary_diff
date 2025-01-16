@@ -1,12 +1,27 @@
 [
   {
     "directory": ".",
-    "command": "g++ -c -Wall -std=c++17 -Isrc obj/../src/diff.cc -o obj/diff.o",
+    "command": "g++ -c -O3 -Wall -std=c++17 -Isrc obj/../src/algo.cc -o obj/algo.o",
+    "file": "obj/algo.o"
+  },
+  {
+    "directory": ".",
+    "command": "g++ -c -O3 -Wall -std=c++17 -Isrc obj/../src/diff.cc -o obj/diff.o",
     "file": "obj/diff.o"
   },
   {
     "directory": ".",
-    "command": "g++ -c -Wall -std=c++17 -Isrc obj/../src/main.cc -o obj/main.o",
+    "command": "g++ -c -O3 -Wall -std=c++17 -Isrc obj/../src/main.cc -o obj/main.o",
     "file": "obj/main.o"
+  },
+  {
+    "directory": ".",
+    "command": "g++ -c -O3 -Wall -std=c++17 -Isrc obj/../src/patch.cc -o obj/patch.o",
+    "file": "obj/patch.o"
+  },
+  {
+    "directory": ".",
+    "command": "g++ -c -O3 -Wall -std=c++17 -Isrc obj/../src/useful.cc -o obj/useful.o",
+    "file": "obj/useful.o"
   }
 ]
