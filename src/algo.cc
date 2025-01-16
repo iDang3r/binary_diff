@@ -62,3 +62,57 @@ LCS::getAnswer( int i, int j, ByteVector &curr, std::vector<bool> &saved_a, std:
     }
     getAnswer( i, j, curr, saved_a, saved_b);
 }
+
+void
+Myers::myers_diff()
+{
+    std::unordered_map<int, History> history;
+    history[1] = {0};
+
+    int a_max = a_.size();
+    int b_max = b_.size();
+
+    for ( int d = 0; d <= a_max + b_max; ++d )
+    {
+        for ( int k = -d; k <= d; k += 2 )
+        {
+            bool go_down = (k == -d || (k != d && history[k - 1].x < history[k + 1].x));
+
+            History next;
+            if ( go_down )
+            {
+                next = history[k + 1];
+            } else
+            {
+                next = history[k - 1];
+                next.x++;
+            }
+
+            int y = next.x - k;
+            if ( 1 <= y && y <= b_max && go_down )
+            {
+                next.saved_b.push_back( 0);
+            } else if ( 1 <= next.x && next.x <= a_max )
+            {
+                next.saved_a.push_back( 0);
+            }
+
+            while ( next.x < a_max && y < b_max && a_[next.x] == b_[y] )
+            {
+                next.saved_a.push_back( 1);
+                next.saved_b.push_back( 1);
+                next.x++; y++;
+            }
+
+            if ( next.x >= a_max && y >= b_max )
+            {
+                saved_a_ = next.saved_a;
+                saved_b_ = next.saved_b;
+                return;
+            }
+            
+            history[k] = next;
+        }
+    }
+    assert( !"Unreachable");
+}

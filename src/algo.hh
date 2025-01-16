@@ -7,18 +7,34 @@
 #include <cstddef>
 #include <cstdio>
 #include <vector>
+#include <unordered_map>
+#include <utility>
 
 #include "useful.hh"
 
-class LCS
+class Algorithm
+{
+protected:
+    ByteVector a_, b_;
+public:
+    Algorithm( const ByteVector &a, const ByteVector &b)
+    :
+        a_( a), b_( b)
+    {}
+
+    virtual void process() = 0;
+    virtual std::pair<std::vector<bool>, std::vector<bool>>
+    getAnswer() const = 0;
+};
+
+class LCS : public Algorithm
 {
 private:
-    ByteVector a_, b_;
     std::vector<std::vector<Byte>> lcs_;
 public:
     LCS( const ByteVector &a, const ByteVector &b)
     :
-        a_( a), b_( b)
+        Algorithm(a, b)
     {
         lcs_.resize( a.size() + 1);
         for ( size_t i = 0; i < lcs_.size(); i++ )
@@ -29,7 +45,7 @@ public:
 
     void process();
 
-    std::tuple<ByteVector, std::vector<bool>, std::vector<bool>>
+    std::pair<std::vector<bool>, std::vector<bool>>
     getAnswer() const
     {
         ByteVector ans;
@@ -41,11 +57,41 @@ public:
         std::reverse( saved_b.begin(), saved_b.end());
         assert( a_.size() == saved_a.size());
         assert( b_.size() == saved_b.size());
-        return {ans, saved_a, saved_b};
+        return { saved_a, saved_b };
     }
 
 private:
     void getAnswer( int i, int j, ByteVector &curr, std::vector<bool> &saved_a, std::vector<bool> &saved_b) const;
+};
+
+class Myers : public Algorithm
+{
+private:
+    std::vector<bool> saved_a_, saved_b_;
+
+    struct History {
+        int x;
+        std::vector<bool> saved_a;
+        std::vector<bool> saved_b;
+    };
+public:
+    Myers( const ByteVector &a, const ByteVector &b)
+    :
+        Algorithm(a, b)
+    {}
+
+    void process()
+    {
+        myers_diff();
+    }
+
+    void myers_diff();
+
+    std::pair<std::vector<bool>, std::vector<bool>>
+    getAnswer() const
+    {
+        return { saved_a_, saved_b_ };
+    }
 };
 
 #endif // ALGO_HH

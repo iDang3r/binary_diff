@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <iostream>
 #include <string>
 
@@ -10,7 +11,7 @@ Diff::process()
     LCS lcs( orig_, new_);
     lcs.process();
 
-    auto [ans, saved_orig, saved_new] = lcs.getAnswer();
+    auto [saved_orig, saved_new] = lcs.getAnswer();
     saved_orig_ = saved_orig;
     saved_new_ = saved_new;
 }
